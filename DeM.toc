@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: DeM - Disenchant & More
+## Notes: Cast Disenchant / Scroll Comprehension on the hovered bag item with two key bindings
+## Notes-frFR: Désenchanter / Compréhension de parchemin sur l'objet survolé, avec deux raccourcis
+## Author: Emzime
+## Version: @project-version@
+## X-Website: https://github.com/Emzime/Disenchant-and-More
+DeM.lua

@@ -1,0 +1,52 @@
+# Builds the addon zip and publishes a GitHub Release when a version tag is pushed.
+# Usage: git tag v3.0.0 && git push origin v3.0.0
+name: Build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="dev-${GITHUB_SHA::7}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Package addon
+        run: |
+          mkdir -p build/DeM
+          cp DeM.toc DeM.lua Bindings.xml build/DeM/
+          # Write the version into the TOC
+          sed -i "s/@project-version@/${{ steps.version.outputs.version }}/" build/DeM/DeM.toc
+          cd build
+          zip -r "Disenchant-and-More-${{ steps.version.outputs.version }}.zip" DeM
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: Disenchant-and-More-${{ steps.version.outputs.version }}
+          path: build/Disenchant-and-More-${{ steps.version.outputs.version }}.zip
+
+      - name: Create release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v3
+        with:
+          name: DeM ${{ steps.version.outputs.version }}
+          files: build/Disenchant-and-More-${{ steps.version.outputs.version }}.zip
+          generate_release_notes: true
