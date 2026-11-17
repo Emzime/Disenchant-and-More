@@ -1,0 +1,13 @@
+# CurseForge packager configuration
+# The addon folder must be named DeM (same name as DeM.toc)
+package-as: DeM
+
+# Files that are not needed in game
+ignore:
+  - README.md
+  - LICENSE
+  - .github
+  - .gitignore
+  - .gitattributes
+  - DeM-icon-400.png
+  - DeM-how-it-works.png
