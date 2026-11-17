@@ -1,5 +1,4 @@
 # DeM — Disenchant & More
-![DeM](https://raw.githubusercontent.com/Emzime/Disenchant-and-More/main/DeM-icon-400.png) 
 ![How DeM works](https://raw.githubusercontent.com/Emzime/Disenchant-and-More/main/DeM-how-it-works.png)
 
 **English** | [Français](#français)
